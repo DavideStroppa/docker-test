@@ -10,7 +10,7 @@ COPY . .
 
 WORKDIR /src/HelloWorld
 
-RUN dotnet publish "HelloWorld.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "HelloWorld.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/runtime:8.0
 
