@@ -1,21 +1,18 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-WORKDIR /src
+WORKDIR /app
 
-COPY ["HelloWorld/HelloWorld.csproj", "HelloWorld/"]
-
-RUN dotnet restore "HelloWorld/HelloWorld.csproj"
+COPY HelloWorld.csproj .
+RUN dotnet restore
 
 COPY . .
 
-WORKDIR /src/HelloWorld
-
-RUN dotnet publish "HelloWorld.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/runtime:8.0
 
 WORKDIR /app
 
-COPY --from=build /app/publish .
+COPY --from=build /app/out .
 
 ENTRYPOINT ["dotnet", "HelloWorld.dll"]
