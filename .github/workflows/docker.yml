@@ -2,18 +2,17 @@ name: Docker Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Scarica repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Crea immagine Docker
+      - name: Build Docker
         run: docker build -t hello-world-csharp .
 
-      - name: Esegui container
+      - name: Run Container
         run: docker run --rm hello-world-csharp
